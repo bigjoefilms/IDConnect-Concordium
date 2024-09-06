@@ -16,8 +16,10 @@
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.0.2",
     "@walletconnect/qrcode-modal": "^1.8.0",
+    "neverthrow": "^7.1.0",
     "next": "14.2.5",
     "react": "^18",
+    "react-bootstrap": "^2.10.4",
     "react-dom": "^18"
   },
   "devDependencies": {

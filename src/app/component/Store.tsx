@@ -4,18 +4,8 @@ import { useEffect, useState } from 'react';
 import { getPastDate, MIN_DATE, Web3StatementBuilder } from '@concordium/web-sdk';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import {
-    BrowserWalletConnector,
-    WalletConnectConnector,
-    WalletConnection,
-    WalletConnectionDelegate,
-} from '@concordium/wallet-connectors';
-
-
-
-
-
-
+import { CircularProgress } from '@mui/material';
+// import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 // Define a list of causes
 const causes = [
@@ -27,7 +17,6 @@ const causes = [
     { id: 6, name: 'Disaster Relief', description: 'Providing aid and support to communities affected by natural disasters and emergencies.' },
 ];
 
-
 export default function CharityDAO() {
     const [isVerified, setVerified] = useState(false);
     const [isFailed, setFailed] = useState(false);
@@ -36,14 +25,10 @@ export default function CharityDAO() {
     const [donationAmount, setDonationAmount] = useState<number>(0);
     const [ageVerified, setAgeVerified] = useState(false);
     const [regionVerified, setRegionVerified] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [donationSuccess, setDonationSuccess] = useState(false);
+    const [donationError, setDonationError] = useState(false);
     const router = useRouter();
-    const [address, setAddress] = useState<string | undefined>(undefined);
-    const [connected, setConnected] = useState<boolean>(false);
-
-    // Define the delegate
-
-
-   
 
     const handleClose = () => setOpen(false);
 
@@ -83,8 +68,6 @@ export default function CharityDAO() {
             setTimeout(() => {
                 resolve(true); // Assuming region verification is successful
             }, 1000);
-     
-     
         });
     }
 
@@ -113,16 +96,27 @@ export default function CharityDAO() {
             alert('Please select a cause to donate to.');
             return;
         }
+        const provider = await detectConcordiumProvider();
+
+        setLoading(true);
+        setDonationSuccess(false);
+        setDonationError(false);
 
         try {
+            // Simulate donation delay
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+
             // Mock donation function
             console.log(`Donating ${donationAmount} to cause ${selectedCause}`);
             // Implement actual donation logic here
 
-            // After successful donation, you might want to show a confirmation
-            alert('Donation successful!');
+            setDonationSuccess(true);
         } catch (error) {
             console.error('Error making donation:', error);
+            setDonationError(true);
+        } finally {
+            setLoading(false);
+            setDonationAmount(0)
         }
     };
 
@@ -153,7 +147,7 @@ export default function CharityDAO() {
                 ) : selectedCause === null ? (
                     <div className="text-center p-8 bg-gray-100 rounded-lg shadow-lg w-full max-w-[800px] ">
                         <h2 className="text-2xl font-semibold mb-4">Select a Cause to Fund</h2>
-                        <div className="flex  flex-wrap items-center justify-center space-y-4 gap-[12px]">
+                        <div className="flex flex-wrap items-center justify-center space-y-4 gap-[12px]">
                             {causes.map(cause => (
                                 <div key={cause.id} className="p-4 bg-white rounded-lg shadow-md">
                                     <h3 className="text-xl font-semibold mb-2">{cause.name}</h3>
@@ -171,6 +165,8 @@ export default function CharityDAO() {
                         <div className="p-4 bg-white rounded-lg shadow-md">
                             <h3 className="text-xl font-semibold mb-2">{causes.find(cause => cause.id === selectedCause)?.name}</h3>
                             <p className="text-gray-700 mb-4">{causes.find(cause => cause.id === selectedCause)?.description}</p>
+                            <div className='flex flex-col'>
+                                
                             <TextField
                                 type="number"
                                 label="Donation Amount"
@@ -179,15 +175,31 @@ export default function CharityDAO() {
                                 className="mb-4"
                                 variant="outlined"
                             />
-                            <button onClick={handleDonation} className="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition duration-300">
-                                Donate
+                            <button 
+                                onClick={handleDonation} 
+                                className="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition duration-300"
+                                disabled={loading} // Disable button during loading
+                            >
+                                {loading ? <CircularProgress size={24} className="text-white" /> : 'Donate'}
                             </button>
+                            </div>
+                            {donationSuccess && !loading && (
+                                <div className="mt-4 text-green-500 flex items-center justify-center">
+                                   Donation Successful!
+                                </div>
+                            )}
+                            {donationError && !loading && (
+                                <div className="mt-4 text-red-500">
+                                    Donation Failed. Please try again.
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
                 {isFailed && (
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle className="text-red-500">Verification Failed</DialogTitle>
+                       
+                                                <DialogTitle className="text-red-500">Verification Failed</DialogTitle>
                         <Alert severity="warning" className="ml-6 mr-6">
                             Verification is not complete. You are not allowed to access DAO functionalities!
                         </Alert>
@@ -203,3 +215,4 @@ export default function CharityDAO() {
         </div>
     );
 }
+
