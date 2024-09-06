@@ -96,7 +96,7 @@ export default function CharityDAO() {
             alert('Please select a cause to donate to.');
             return;
         }
-        const provider = await detectConcordiumProvider();
+       
 
         setLoading(true);
         setDonationSuccess(false);
@@ -110,14 +110,21 @@ export default function CharityDAO() {
             console.log(`Donating ${donationAmount} to cause ${selectedCause}`);
             // Implement actual donation logic here
 
-            setDonationSuccess(true);
+           
         } catch (error) {
             console.error('Error making donation:', error);
             setDonationError(true);
         } finally {
             setLoading(false);
             setDonationAmount(0)
+            setDonationSuccess(true);
+           
         }
+        setTimeout(() => {
+            setDonationSuccess(false);
+        }, 2000);
+    
+        
     };
 
     const handleGoHome = () => {

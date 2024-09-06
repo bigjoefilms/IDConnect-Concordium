@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+CharityDAO is a revolutionary platform that combines decentralized voting with charitable giving. This guide will help you set up the CharityDAO application using Next.js, a powerful React framework that enables server-side rendering and static site generation.
 
-First, run the development server:
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [1. Create a New Next.js Project](#1-create-a-new-nextjs-project)
+- [2. Navigate to Your Project Directory](#2-navigate-to-your-project-directory)
+- [3. Install Dependencies](#3-install-dependencies)
+- [4. Configure Next.js](#4-configure-nextjs)
+- [5. Set Up Your Project Structure](#5-set-up-your-project-structure)
+- [6. Create Pages and Components](#6-create-pages-and-components)
+- [7. Set Up API Routes](#7-set-up-api-routes)
+- [8. Add Styles](#8-add-styles)
+- [9. Run Your Development Server](#9-run-your-development-server)
+- [10. Deploy Your Application](#10-deploy-your-application)
+- [Learn More](#learn-more)
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v14 or later)
+- **npm** or **yarn** (package managers for Node.js)
+
+## 1. Create a New Next.js Project
+
+To get started with Next.js, create a new project by running:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+npx create-next-app@latest charitydao
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+For a detailed overview of how CharityDAO works and its impact on charitable giving, watch our explainer video below:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[Watch the Explainer Video](https://youtu.be/_QpgbK_fGv8?si=QiwRyUH8qA3JtYe0)
