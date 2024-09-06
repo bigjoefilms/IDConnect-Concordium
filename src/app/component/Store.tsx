@@ -83,6 +83,8 @@ export default function CharityDAO() {
             setTimeout(() => {
                 resolve(true); // Assuming region verification is successful
             }, 1000);
+     
+     
         });
     }
 
